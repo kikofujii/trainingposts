@@ -1,0 +1,12 @@
+<h1>Users#show</h1>
+<p>Find me in app/views/users/show.html.erb</p>
+
+<% if @user.icon_img? %>
+    <%= image_tag @user.icon_img.url %>
+<% end %>
+<p><%= @user.name %></p>
+
+    <p><%= @user.introduce %></p>
+
+
+<%= link_to 'プロフィールを編集する', edit_user_path(@user) %>
