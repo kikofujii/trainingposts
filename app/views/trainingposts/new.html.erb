@@ -1,0 +1,19 @@
+<%= form_with(model: @trainingpost, local: true) do |f| %>
+<%= render 'layouts/error_messages', model: f.object %>
+    <%= f.label :title %>
+    <%= f.text_field :title, value: 'タイトルを入力しよう' %>
+    
+    <%= f.label :content %>
+    <%= f.text_area :content, value: '本文を入力しよう' %>
+    
+    <%= f.label :training_part %>
+        <% ["全身", "上半身", "下半身", "胸", "背中", "脚", "お腹", "肩", "腕", "お尻", "体幹"].each do |training_part| %>
+        <%= f.check_box :training_part, {multiple: true}, training_part, nil %>
+        <%= training_part %>
+    <% end %>
+    
+    <%= f.label :post_img, '写真を投稿しよう' %>
+    <%= f.file_field :post_img, multiple: true %>
+    
+    <%= f.submit '投稿する！' %>
+<% end %>

@@ -1,0 +1,12 @@
+
+<li><%= @trainingpost.user.name %></li>
+<li><%= @trainingpost.title %></li>
+<li><%= @trainingpost.content %></li>
+<% if @trainingpost.post_img? %>
+    <%= image_tag @trainingpost.post_img[0].url %>
+<% end %>
+
+<li><%= @trainingpost.training_part %></li>
+<%= render 'favorites/like_button', trainingpost: @trainingpost %>
+<%= link_to '投稿一覧に戻る', trainingposts_path %>
+<%= link_to '削除', @trainingpost, method: :delete, data: {confirm: "本当に削除してもいいですか？"}, class: 'btn btn-danger btn-sm' %>
