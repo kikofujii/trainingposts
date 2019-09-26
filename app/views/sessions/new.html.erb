@@ -1,14 +1,17 @@
-<h1>Sessions#new</h1>
-<p>Find me in app/views/sessions/new.html.erb</p>
-
-<%= form_with(url: login_path, scope: :session, local: true) do |f| %>
-    
-    <%= f.label :email, 'Email' %>
-    <%= f.text_field :email %>
-    
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-    
-    <%= f.submit 'ログインする' %>
-    
-<% end %>
+<div class="row">
+    <div class="col-sm-6 offset-sm-3">
+        <div class="form-group">
+            <%= form_with(url: login_path, scope: :session, local: true) do |f| %>
+                
+                <%= f.label :email %>
+                <%= f.text_field :email, class: 'form-control', placeholder: 'メールアドレスを入力してください' %>
+                
+                <%= f.label :password, 'パスワード' %>
+                <%= f.password_field :password, class: 'form-control mb-3', placeholder: 'パスワードを入力してください' %>
+                
+                <%= f.submit 'ログインする', class: 'btn btn-primary btn-block btn-lg' %>
+                
+            <% end %>
+        </div>
+    </div>
+</div>

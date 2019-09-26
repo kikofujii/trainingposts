@@ -1,1 +1,55 @@
-<h1>トップページ</h1>
+<% if logged_in? %>
+    <%= render 'trainingposts/index', trainingposts: @trainingposts %>
+<% else %>
+    <div class="jumbotron" style="background: url(<%= asset_path "physiotherapy-595529_1920.jpg" %>) center; background-size:cover; height:600px; color: white;">
+      <h1 class="display-4">トレーニングを</br>ポストする</h1>
+      <p class="lead"> </p>
+      <hr class="my-4">
+      <p></p>
+    </div>
+    <div class="container">
+        <h3 style="padding: .25em 0 .5em .75em; border-left: 6px solid #ccc; border-bottom: 1px solid #ccc; margin-bottom: 40px;">トラポスって？</h3>
+    </div>    
+        <div class="row">
+            <div class="container text-center col-md-4">
+                <%= image_tag 'font-awesome_4-7-0_share-square_256_0_95a5a6_ffffff.png', style: 'width: 30%; margin-bottom: 10px;' %>
+                <p>トレーニングの内容を</br>投稿してシェアしよう</p>
+            </div>
+            <div class="container text-center col-md-4">
+                <%= image_tag 'map-icons_3-0-0_walking_256_0_95a5a6_ffffff.png', style: 'width: 30%; margin-bottom: 10px;' %>
+                <p>みんなのトレーニングを見て</br>モチベーションをあげましょう</p>
+            </div>
+            <div class="container text-center col-md-4">
+                <%= image_tag 'map-icons_3-0-0_school_256_0_95a5a6_ffffff.png', style: 'width: 30%; margin-bottom: 10px;' %>
+                <p>トレーニングを</br>良いサイクルで行うためにアドバイスします</p>
+            </div>
+    <div class="container text-center" style="margin:20px 0 40px 0;">
+        <%= link_to '無料アカウント登録', signup_path, class: 'btn btn-info btn-lg' %>
+    </div>
+    <div class="container">
+        <h3 style="padding: .25em 0 .5em .75em; border-left: 6px solid #ccc; border-bottom: 1px solid #ccc;">みんなの投稿を見てみよう！</h3>
+        <ul class="list-unstyled">
+            <% @trainingposts.each do |trainingpost| %>
+                <li class="media mb-3">
+                <div class="media-body" style="position: relative; padding: .5em .75em; background-color: #f0f0f0; border-radius: 6px;">
+                    <div>
+                        <p><%= trainingpost.title %></p>
+                    </div>
+                    <div class="border-bottom border-muted my-1"></div>
+                    <div>
+                        <p><%= trainingpost.content %></p>
+                    </div>
+                    <div>
+                        <p><%= trainingpost.training_part %>をトレーニングしました！</p>
+                    </div>
+                     <div>
+                        <%= link_to trainingpost.user.name, user_path(trainingpost.user) %> <span class="text-muted">posted at <%= trainingpost.created_at %></span>
+                     </div>
+                    <div class="border-bottom border-muted my-1"></div>
+                </div>
+                </li>
+            <% end %>
+            <%= paginate @trainingposts %>
+        </ul>
+    </div>
+<% end %>

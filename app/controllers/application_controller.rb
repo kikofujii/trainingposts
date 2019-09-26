@@ -8,4 +8,11 @@ class ApplicationController < ActionController::Base
             redirect_to root_url
         end
     end
+    
+    #各種数の表示
+    def counts(user)
+        @count_trainingposts = user.trainingposts.count
+        @count_followings = user.followings.count
+        @count_likes = user.favorites.count
+    end
 end

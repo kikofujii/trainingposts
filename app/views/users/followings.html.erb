@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="justify-content-center">
+        <% if @user.icon_img? %>
+            <%= image_tag @user.icon_img.url, class: 'd-block mx-auto', :size => '300x300' %>
+        <% end %>
+        
+        <h3 class="text-center"><%= @user.name %></h3>
+        
+        <p class="text-center"><%= @user.introduce %></p>
+        <%= render 'relationships/follow_button', user: @user %>
+        
+        
+        <p class="text-center"><%= link_to 'プロフィールを編集する', edit_user_path(@user) %></p>
+    </div>
+    <ul class="nav nav-tabs nav-justified mb-3">
+        <li class="nav-item"><a href="<%= user_path(@user) %>" class="nav-link <%= 'active' if current_page?(user_path(@user))%>">Microposts <span class="badge badge-secondary"><%= @count_trainingposts %></span></a></li>
+        <li class="nav-item"><a href="<%= followings_user_path(@user) %>" class="nav-link <%= 'active' if current_page?(followings_user_path(@user)) %>">Followings <span class="badge badge-secondary"><%= @count_followings %></span></a></li>
+        <li class="nav-item"><a href="<%= likes_user_path(@user) %>" class="nav-link <%='active' if current_page?(likes_user_path(@user)) %>">Favorites <span class="badge badge-secondary"><%= @count_likes %></span></a></li>
+    </ul>
+    <%= render 'user', users: @followers %>
+</div>

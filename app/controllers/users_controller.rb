@@ -9,6 +9,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @trainingposts = @user.trainingposts.order(id: :desc).page(params[:page]).per(5)
+    counts(@user)
   end
   
   def create
@@ -30,8 +32,6 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    
-   
       if @user.update(user_params)
         flash[:success] = 'プロフィールを更新しました！'
         redirect_to @user
@@ -40,6 +40,18 @@ class UsersController < ApplicationController
         render :edit
       end
       
+  end
+  
+  def followings
+    @user = User.find(params[:id])
+    @followers = @user.followings.page(params[:page])
+    counts(@user)
+  end
+  
+  def likes
+    @user = User.find(params[:id])
+    @trainingposts = @user.favorite_trainingpost.order(id: :desc).page(params[:page]).per(5)
+    counts(@user)
   end
 
 

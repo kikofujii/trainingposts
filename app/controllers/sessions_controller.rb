@@ -6,7 +6,12 @@ class SessionsController < ApplicationController
     email = params[:session][:email].downcase
     password = params[:session][:password]
     if login(email, password)
-      flash[:success] = 'ログインできました！'
+      @post_ago = @user.trainingposts.where(created_at: 3.day.ago.all_day).last
+      if @post_ago
+        flash[:success] = ["ログインできました！\n", "#{@post_ago.training_part}をトレーニングしませんか？"]
+      else
+        flash[:success] = 'ログインしました！'
+      end
       redirect_to @user
     else
       flash.now[:danger] = 'ログインできていません！'

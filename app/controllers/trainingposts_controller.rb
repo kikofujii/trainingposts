@@ -2,11 +2,11 @@ class TrainingpostsController < ApplicationController
   before_action :require_user_logged_in
   before_action :training_part_array, only: [:create]
   def index
-    @trainingposts = Trainingpost.all
+    @user = User.find(params[:id])
+    @trainingposts = @user.trainingposts.order(id: :desc).page(params[:page]).per(5)
   end
 
   def show
-    
     @trainingpost = Trainingpost.find(params[:id])
   end
 
@@ -28,18 +28,27 @@ class TrainingpostsController < ApplicationController
   end
 
   def destroy
+    @user = current_user
     @trainingpost = Trainingpost.find(params[:id])
     @trainingpost.destroy
     flash[:success] = "投稿を削除しました"
-    redirect_to trainingposts_path
+    redirect_to @user
   end
+  
+  def search
+    @trainingposts = Trainingpost.all.search(params[:search]).order(id: :desc).page(params[:page]).per(5)
+  end
+  
+ 
   
   private
   def trainingpost_params
-    params.require(:trainingpost).permit(:title, :content, :training_part, {post_img:[]})
+    params.require(:trainingpost).permit(:title, :content, :training_part, :post_img)
   end
+  
   def training_part_array
-    params[:trainingpost][:training_part] = params[:trainingpost][:training_part].join("/")
+    if params[:trainingpost][:training_part]
+      params[:trainingpost][:training_part] = params[:trainingpost][:training_part].join("/")
+    end
   end
- 
 end

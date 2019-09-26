@@ -1,11 +1,15 @@
 <% if current_user.liking?(trainingpost) %>
     <%= form_with(model: current_user.favorites.find_by(trainingpost_id: trainingpost.id), local: true, method: :delete) do |f| %>
         <%= hidden_field_tag :trainingpost_id, trainingpost.id %>
-        <%= f.submit 'いいね！を外す', class: 'btn btn-outline-danger btn-sm' %>
+        <%= button_tag type: 'submit',class: 'btn btn-outline-danger btn-sm' do %>
+            <i class="fas fa-heart"></i>
+        <% end %>
     <% end %>
 <% else %>
     <%= form_with(model: current_user.favorites.build, local: true) do |f| %>
         <%= hidden_field_tag :trainingpost_id, trainingpost.id %>
-        <%= f.submit 'いいね！', class: 'btn btn-danger btn-sm' %>
+        <%= button_tag type: 'submit', class: 'btn btn-outline-danger btn-sm' do %>
+            <i class="far fa-heart"></i>
+        <% end %>
     <% end %>
 <% end %>

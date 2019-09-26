@@ -1,12 +1,23 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+
 <div class="row">
     <div class="col-sm-6 offset-sm-3">
         <%= form_with(model: @user, local: true) do |f| %>
         <%= render 'layouts/error_messages', model: f.object %>
         <div class="form-group">
             <%= f.label :icon_img, '画像を登録しよう！' %>
-            <%= f.file_field :icon_img %>
+                <!--id "file"で、fileとdivを紐付けクリック時に連動-->
+                  <div id="icon_img_field" onClick="$('#icon_file').click()" >
+             
+                    <!--// 画像があるときは画像を表示する-->
+                    <% if @user.icon_img.present? %>
+                      <%= image_tag(@user.icon_img.url) %>
+                     <% else %>
+                    　<i class="fas fa-image"></i><i class="fas fa-file-upload add"></i>
+                    <% end %>
+             
+                  </div>
+    
+            <%= f.file_field :icon_img, class: "image", style: "display: none;", id: "icon_file" %>
         </div>
         <div class="form-group">
             <%= f.label :name, '名前' %>

@@ -1,19 +1,45 @@
-<%= form_with(model: @trainingpost, local: true) do |f| %>
-<%= render 'layouts/error_messages', model: f.object %>
-    <%= f.label :title %>
-    <%= f.text_field :title, value: 'タイトルを入力しよう' %>
+<div class="row">
+    <div class="col-sm-6 offset-sm-3">
+        <%= form_with(model: @trainingpost, local: true) do |f| %>
+        <%= render 'layouts/error_messages', model: f.object %>
+            <div class="form-group">
+                <%= f.label :title %>
+                <%= f.text_field :title, placeholder: 'タイトルを入力しよう', class: 'form-control' %>
+            </div>
+            <div class="form-group">
+                <%= f.label :content %>
+                <%= f.text_area :content, placeholder: '本文を入力しよう', class: 'form-control' %>
+            </div>
+            <div class="form-group">
+                <div class="clo-sm-2">
+                    <%= f.label :training_part %>
+                </div>
+                <div class="col-sm-12 btn-group" data_toggle="button">
+                    <% ["全身", "上半身", "下半身", "胸", "背中", "脚", "お腹", "肩", "腕", "お尻", "体幹"].each do |training_part| %>
+                    <label class="btn btn-outline-secondary" style="width:50%">
+                        <%= f.check_box :training_part, {multiple: true}, training_part, nil %>
+                        <%= training_part %>
+                    </label>
+                    <% end %>
+                </div>
+            </div>
+            <div class="form-group">
+                <%= f.label :post_img, '写真を投稿しよう' %>
+                    <!--id "file"で、fileとdivを紐付けクリック時に連動-->
+                  <div id="img_field" onClick="$('#file').click()" >
+             
+                    <!--// 画像があるときは画像を表示する-->
+                    <% if @trainingpost.post_img.present? %>
+                      <%= image_tag(@trainingpost.post_img.url) %>
+                     <% else %>
+                    　<i class="fas fa-image"></i><i class="fas fa-file-upload add"></i>
+                    <% end %>
+             
+                  </div>
     
-    <%= f.label :content %>
-    <%= f.text_area :content, value: '本文を入力しよう' %>
-    
-    <%= f.label :training_part %>
-        <% ["全身", "上半身", "下半身", "胸", "背中", "脚", "お腹", "肩", "腕", "お尻", "体幹"].each do |training_part| %>
-        <%= f.check_box :training_part, {multiple: true}, training_part, nil %>
-        <%= training_part %>
-    <% end %>
-    
-    <%= f.label :post_img, '写真を投稿しよう' %>
-    <%= f.file_field :post_img, multiple: true %>
-    
-    <%= f.submit '投稿する！' %>
-<% end %>
+                <%= f.file_field :post_img, class: "image", style: "display: none;", id: "file" %>
+            </div>
+            <%= f.submit '投稿する！', class: 'btn btn-secondary btn-sm' %>
+        <% end %>
+    </div>
+</div>

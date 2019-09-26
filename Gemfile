@@ -61,5 +61,4 @@ gem 'carrierwave'
 #画像のサイズ調整用のGem
 gem 'rmagick'
 
-gem 'jquery-rails'
-gem 'bootstrap',  '~> 4.1.1'
+gem 'font-awesome-sass', '~> 5.4.1'

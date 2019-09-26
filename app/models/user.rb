@@ -43,4 +43,18 @@ class User < ApplicationRecord
     def liking?(trainingpost)
         self.favorite_trainingpost.include?(trainingpost)
     end
+    
+    #連続投稿
+    #   def is_continuos_post
+    #     continuos_post_at = current_user.trainingposts.last.created_at.to_date #前の投稿の情報を取得する
+    #     d = Date.today
+    #     yesterday = d - 1
+    #     if continuos_post_at == yesterday
+    #       current_user.increment(:continuos_count, 1)
+    #       current_user.continuos_count.save
+    #     elsif continuos_post_at < yesterday
+    #       current_user.continuos_count = 1
+    #       current_user.continuos_count.save
+    #     end
+    #   end
 end
